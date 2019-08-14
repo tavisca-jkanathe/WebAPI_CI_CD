@@ -4,6 +4,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
+                dotnet restore WebAPI.sln --source https://api.nuget.org/v3/index.json
                 echo 'Building..'
             }
         }
