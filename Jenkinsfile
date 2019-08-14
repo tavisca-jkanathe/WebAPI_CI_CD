@@ -35,7 +35,7 @@ pipeline {
                 expression { params.REQUESTED_ACTION == 'TEST' }
             }
             steps {
-                sh'dotnet test ${TEST_PROJECT_PATH}'
+                sh 'dotnet test ${TEST_PROJECT_PATH}'
             }
         }
     }
