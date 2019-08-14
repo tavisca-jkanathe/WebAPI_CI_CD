@@ -8,19 +8,15 @@ pipeline {
             }
         }
         stage('Test') {
-            steps {
-                echo 'Testing..'
-            }
-        }
-        stage('Deploy') {
-              when {
+             when {
               expression {
                 currentBuild.result == null || currentBuild.result == 'SUCCESS' 
               }
             }
             steps {
-                echo 'Deploying....'
+                echo 'Testing..'
             }
         }
+       
     }
 }
