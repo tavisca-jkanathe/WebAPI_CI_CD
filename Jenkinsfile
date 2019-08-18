@@ -17,6 +17,22 @@ pipeline {
              name: 'TEST_PROJECT_PATH',
              defaultValue: 'XUnitWebAPITest/XUnitWebAPITest.csproj',
              description: 'test path')
+        string(
+            name: 'DOCKER_USERNAME', 
+            defaultValue: 'jayantvnk'
+             description: 'docker username')
+        string(
+            name: 'DOCKER_PASSWORD',
+            defaultValue:'jayantadmin'
+            description: 'docker password')
+        string(
+            name: 'DOCKER_REPO_NAME',
+            defaultValue:'jayantvnk/webapi'
+            description: 'docker repository')
+        string(
+            name: 'IMAGE_VERSION',
+            defaultValue:'latest'
+            description: 'docker image version')
     }
     stages {
         stage('Build') {
@@ -34,7 +50,19 @@ pipeline {
                
                 echo "----------------------------Publishing-----------------------------"
                 dotnet publish %WEB_API_SOLUTION_FILE% -c Release -o ../publish
+                
+                  echo "----------------------------DockeImage-----------------------------"
+                docker build -t %DOCKER_REPO_NAME%:%IMAGE_VERSION% --build-arg project_name=%SOLUTION_NAME%.dll .
                
+                '''
+            }
+        }
+         stage('Deploy') {
+            steps {
+                bat '''
+                echo "----------------------------Deploy-----------------------------"
+                docker login -u %DOCKER_USERNAME% -p %DOCKER_PASSWORD%
+                docker push %DOCKER_REPO_NAME%:%IMAGE_VERSION%
                 '''
             }
         }
