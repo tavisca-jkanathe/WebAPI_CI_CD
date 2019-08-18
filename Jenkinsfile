@@ -27,24 +27,17 @@ pipeline {
                 bat '''
               
                 echo "----------------------------Build-----------------------------"
-                dotnet build %SOLUTION_FILE_PATH% -p:Configuration=release -v:n
+                dotnet build %WEB_API_SOLUTION_FILE% -p:Configuration=release -v:n
                
                 echo "----------------------------Test-----------------------------"
-                dotnet test %TEST_FILE_PATH%
+                dotnet test %TEST_PROJECT_PATH%
                
                 echo "----------------------------Publishing-----------------------------"
-                dotnet publish %SOLUTION_FILE_PATH% -c Release -o ../publish
+                dotnet publish %WEB_API_SOLUTION_FILE% -c Release -o ../publish
                
                 '''
             }
         }
-        stage('Test') {
-            when {
-                expression { params.REQUESTED_ACTION == 'TEST' }
-            }
-            steps {
-                
-            }
-        }
+        
     }
 }
