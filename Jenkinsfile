@@ -55,6 +55,9 @@ pipeline {
                 echo "----------------------------Publishing-----------------------------"
                 dotnet publish %WEB_API_SOLUTION_FILE% -c Release -o ../publish
                 
+                echo "----------------------------make artifact-----------------------------"
+                compress-archive WebApi/bin/Release/netcoreapp2.1/publish/ artifact.zip -Update
+                
                   echo "----------------------------DockeImage-----------------------------"
                 docker build -t %DOCKER_REPO_NAME%:%IMAGE_VERSION% --build-arg project_name=%SOLUTION_NAME%.dll .
                
@@ -67,6 +70,9 @@ pipeline {
                 echo "----------------------------Deploy-----------------------------"
                 docker login -u %DOCKER_USERNAME% -p %DOCKER_PASSWORD%
                 docker push %DOCKER_REPO_NAME%:%IMAGE_VERSION%
+                
+                expand-archive ../webapi_build_deploy/artifact.zip ./ -Force
+                    dotnet publish/WebApi.dll
                 '''
             }
         }
