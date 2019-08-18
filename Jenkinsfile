@@ -35,8 +35,8 @@ pipeline {
             description: 'docker image version')
         string(
             name: 'SOLUTION_NAME', 
-            defaultValue: 'WebApi'
-            description: 'solution anme')
+            defaultValue: 'WebApi',
+            description: 'solution name')
     }
     stages {
         stage('Build') {
