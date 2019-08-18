@@ -71,7 +71,7 @@ pipeline {
                 docker login -u %DOCKER_USERNAME% -p %DOCKER_PASSWORD%
                 docker push %DOCKER_REPO_NAME%:%IMAGE_VERSION%
                 
-                expand-archive ../webapi_build_deploy/artifact.zip ./ -Force
+                expand-archive ..jkanathe_webapi_build_deploy/artifact.zip ./ -Force
                     dotnet publish/WebApi.dll
                 '''
             }
