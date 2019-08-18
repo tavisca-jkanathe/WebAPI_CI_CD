@@ -33,6 +33,10 @@ pipeline {
             name: 'IMAGE_VERSION',
             defaultValue:'latest',
             description: 'docker image version')
+        string(
+            name: 'SOLUTION_NAME', 
+            defaultValue: 'WebApi'
+            description: 'solution anme')
     }
     stages {
         stage('Build') {
