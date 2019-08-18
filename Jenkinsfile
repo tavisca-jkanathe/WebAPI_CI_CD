@@ -25,8 +25,16 @@ pipeline {
             }
             steps {
                 bat '''
-                    dotnet restore ${WEB_API_SOLUTION_FILE} --source https://api.nuget.org/v3/index.json
-                    dotnet build ${WEB_API_SOLUTION_FILE} -p:Configuration=release -v:n
+              
+                echo "----------------------------Build-----------------------------"
+                dotnet build %SOLUTION_FILE_PATH% -p:Configuration=release -v:n
+               
+                echo "----------------------------Test-----------------------------"
+                dotnet test %TEST_FILE_PATH%
+               
+                echo "----------------------------Publishing-----------------------------"
+                dotnet publish %SOLUTION_FILE_PATH% -c Release -o ../publish
+               
                 '''
             }
         }
@@ -35,7 +43,7 @@ pipeline {
                 expression { params.REQUESTED_ACTION == 'TEST' }
             }
             steps {
-                bat 'dotnet test ${TEST_PROJECT_PATH}'
+                
             }
         }
     }
