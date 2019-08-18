@@ -19,19 +19,19 @@ pipeline {
              description: 'test path')
         string(
             name: 'DOCKER_USERNAME', 
-            defaultValue: 'jayantvnk'
+            defaultValue: 'jayantvnk',
              description: 'docker username')
         string(
             name: 'DOCKER_PASSWORD',
-            defaultValue:'jayantadmin'
+            defaultValue:'jayantadmin',
             description: 'docker password')
         string(
             name: 'DOCKER_REPO_NAME',
-            defaultValue:'jayantvnk/webapi'
+            defaultValue:'jayantvnk/webapi',
             description: 'docker repository')
         string(
             name: 'IMAGE_VERSION',
-            defaultValue:'latest'
+            defaultValue:'latest',
             description: 'docker image version')
     }
     stages {
