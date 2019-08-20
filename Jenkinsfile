@@ -67,9 +67,15 @@ pipeline {
          stage('Deploy') {
             steps {
                 bat '''
+                echo "----------------------------extract artifact-----------------------------"
+                  expand-archive artifact.zip ./ -Force
+                    dotnet publish/WebApi.dll
+                    
                 echo "----------------------------Deploy-----------------------------"
                 docker login -u %DOCKER_USERNAME% -p %DOCKER_PASSWORD%
                 docker push %DOCKER_REPO_NAME%:%IMAGE_VERSION%
+                
+              
                 
                 
                 '''
